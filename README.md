@@ -334,4 +334,4 @@ The project serves as a practical framework for developing trustworthy machine l
 ---
 ### Author
 
-*Krishna Popat
+* Krishna Popat
