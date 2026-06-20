@@ -93,8 +93,14 @@ with tab2:
         ax.set_title(f'Income Rate by {feature}')
         ax.tick_params(axis='x', rotation=45)
     else:
+        # Check if feature has enough unique values for cut
         if data[feature].nunique() > 10:
-            data.groupby(pd.cut(data[feature], bins=10))['income'].mean().plot(kind='line', ax=ax, marker='o')
+            # Use pd.cut only for numeric columns with many unique values
+            try:
+                data.groupby(pd.cut(data[feature], bins=10))['income'].mean().plot(kind='line', ax=ax, marker='o')
+            except:
+                # Fallback to bar plot if cut fails
+                data.groupby(feature)['income'].mean().plot(kind='bar', ax=ax)
         else:
             data.groupby(feature)['income'].mean().plot(kind='bar', ax=ax)
         ax.set_title(f'Income Rate by {feature}')
@@ -148,7 +154,6 @@ def prepare_data(df):
 X, y = prepare_data(data)
 
 # Feature Engineering for better accuracy
-# Create interaction features
 X['age_hours'] = X['age'] * X['hours-per-week']
 X['capital_ratio'] = X['capital-gain'] / (X['capital-loss'] + 1)
 X['education_experience'] = X['education-num'] * X['age']
@@ -163,7 +168,7 @@ def train_models(X, y):
         X, y, test_size=0.2, random_state=42, stratify=y
     )
     
-    # Model 1: XGBoost with optimal parameters for 90%+ accuracy
+    # Model 1: XGBoost with optimal parameters
     model_original = XGBClassifier(
         n_estimators=500,
         learning_rate=0.05,
@@ -258,7 +263,7 @@ def calculate_fairness(X_test, y_pred):
     
     return fairness_metrics
 
-with st.spinner("Training XGBoost model for 90%+ accuracy..."):
+with st.spinner("Training XGBoost model..."):
     start_time = time.time()
     results = train_models(X, y)
     end_time = time.time()
