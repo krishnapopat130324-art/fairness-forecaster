@@ -332,30 +332,6 @@ The project serves as a practical framework for developing trustworthy machine l
 * Azure
 
 ---
+### Author
 
-## 🤝 Contributing
-
-Contributions, suggestions, and feature requests are welcome.
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Submit a Pull Request
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License.
-
----
-
-## 🙏 Acknowledgments
-
-* UCI Machine Learning Repository for providing the Adult Census Dataset
-* The Streamlit, Scikit-Learn, Pandas, and NumPy communities
-* Researchers and practitioners advancing Responsible AI and Fairness in Machine Learning
-
----
-
-### Built with a commitment to Fair, Explainable, and Responsible AI.
+*Krishna Popat
